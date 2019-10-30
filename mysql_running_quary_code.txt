@@ -1,0 +1,116 @@
+#------------------------------------------
+#
+# 1. We create the database and select it 
+#
+#-----------------------------------------
+CREATE database my_project_database;
+USE my_project_database;
+#
+#------------------------------------------
+#
+# 2. We add the tables and its rows 
+#
+#------------------------------------------
+#
+
+#
+#------------------------------------------
+# 2.2. Table STAFF
+#------------------------------------------
+#
+CREATE TABLE STAFF(
+    staff_No   VARCHAR(4)	NOT NULL,
+	first_Name	VARCHAR(20),
+	last_Name	VARCHAR(20),
+    address	VARCHAR(30),
+	shift	VARCHAR(9),           
+    qualification VARCHAR(30),
+    job_Title VARCHAR(15),
+    phone VARCHAR(11),
+    work_Hours tinyint,
+    salary	DECIMAL,
+PRIMARY KEY (staff_No)
+);
+#
+INSERT INTO STAFF VALUES('SL21', 'John', 'White', 'Wilton, Cork', 'Morning', 'QQI Level 5', 'Teacher', '087-4363853','17', 30000);
+INSERT INTO STAFF VALUES('SG37', 'Ann', 'Beech', 'Bishoptown, Cork', 'Evening', 'QQI Level 6', 'Teacher', '021-22563', '18', 12000);
+INSERT INTO STAFF VALUES('SG14', 'David', 'Ford', 'Model Farm Rd., Cork', 'Evening', 'QQI Level 5', 'Supervisor', '086-6363863', '20', 18000);
+INSERT INTO STAFF VALUES('SA9', 'Mary', 'Howe', 'Laburnum, Cork', 'Morning', 'QQI Level 6', 'Assistant', '085-3639652', '15', 9000);
+INSERT INTO STAFF VALUES('SG5', 'Susan', 'Brand', 'Ballincollig, Cork', 'Evening', 'QQI Level 5', 'Manager', '086-6398693', '24', 24000);
+#
+#------------------------------------------
+# 2.3. Table CHILD
+#------------------------------------------
+#
+
+CREATE TABLE CHILD(
+    child_No VARCHAR(4) NOT NULL,
+	first_Name	VARCHAR(20),
+	last_Name	VARCHAR(20),
+    address	VARCHAR(30),
+	medical_Condition	VARCHAR(20),           
+    allergy VARCHAR(20),
+    Date_Of_Birth DATE,
+    fees DECIMAL,
+    due_fees CHAR,
+    start_Date DATE,
+    staff_No VARCHAR(4),
+    finish_Date DATE,
+PRIMARY KEY (child_No),
+FOREIGN KEY (staff_No) REFERENCES STAFF(staff_No)
+);
+
+#
+INSERT INTO CHILD VALUES('CO46', 'Joe', 'Keogh', 'Passage West, Cork', 'Asmatic', 'Peanut', '2010-01-10', 45000, 'N', '2017-10-04', 'SL21', '2017-10-07');
+INSERT INTO CHILD VALUES('CO87', 'Carol', 'Farrel', 'Douglas, Cork','Disability', 'Hazelnut', '2012-04-05', 50000, 'N', '2017-11-03', 'SG37', '2017-12-18' );
+INSERT INTO CHILD VALUES('CO40', 'Tina', 'Murphy', 'Mahon, Cork','Normal', 'Normal', '2014-03-08', 45000, 'Y', '2017-09-08', 'SG14', '2017-12-10');
+INSERT INTO CHILD VALUES('CO93', 'Tony', 'Shaw', 'Passage West, Cork','Normal', 'Normal', '2013-07-02', 50000, 'Y', '2017-05-05', 'SA9', '2017-08-04');
+#
+#------------------------------------------
+# 2.4. Table CLASS_ROOM	
+#------------------------------------------
+#
+
+CREATE TABLE CLASS_ROOM(
+    class_No   tinyint	NOT NULL,
+	staff_No	VARCHAR(4),
+	class_Type	VARCHAR(15),
+    location	VARCHAR(30),
+	size	VARCHAR(15),           
+    PRIMARY KEY (class_No),
+FOREIGN KEY (staff_No) REFERENCES STAFF(staff_No)
+);
+
+#
+INSERT INTO CLASS_ROOM VALUES(101,'SL21', 'Infant', 'Downstairs', 'Large');
+INSERT INTO CLASS_ROOM VALUES(102, 'SG37', 'Middle Age', 'Upstairs', 'Extra Large');
+INSERT INTO CLASS_ROOM VALUES(103,'SG14', 'Infant', 'Downstairs', 'Medium');
+INSERT INTO CLASS_ROOM VALUES(104, 'SA9', 'Middle Age', 'Upstairs', 'Small');
+
+#
+#------------------------------------------
+# 2.5. Table CHILDCARE	
+#------------------------------------------
+#
+
+CREATE TABLE CHILDCARE(
+    child_No   	VARCHAR(4),
+	class_No	tinyint,
+    CONSTRAINT PK_ChildCare PRIMARY KEY (Child_No, Class_No)
+);
+
+#
+INSERT INTO CHILDCARE VALUES('CO46', 101);
+INSERT INTO CHILDCARE VALUES('CO87', 102);
+INSERT INTO CHILDCARE VALUES('CO40', 103);
+INSERT INTO CHILDCARE VALUES('CO93', 104);
+#
+#------------------------------------------
+# 2.6. Table VIEWING	
+#------------------------------------------
+#
+
+#
+
+select * from staff;
+
